@@ -20,5 +20,5 @@ func main() {
 	r.Post("/set", kv.Set)
 	r.Get("/search", kv.Search)
 
-	log.Fatal(http.ListenAndServe(":80", r))
+	log.Fatal(http.ListenAndServe(":8088", r))
 }

@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kv-store
+  labels:
+    app: kv-store
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kv-store
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: kv-store
+    spec:
+      containers:
+      - name: kv-store
+        image: <IMAGE>
+        ports:
+        - containerPort: 8088
+        resources:
+          requests:
+            memory: 100m
+          limits:
+            memory: 1G
+      imagePullSecrets:
+      - name: ghcr
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kv-store-service
+spec:
+  type: LoadBalancer
+  ports:
+    - name: https
+      protocol: TCP
+      port: 443
+      targetPort: 8088
+  selector:
+    app: kv-store

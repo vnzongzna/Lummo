@@ -1,0 +1,4 @@
+terraform/terraform.tfstate*
+terraform/.terraform*
+terraform/.auto.tfvars.json
+.env

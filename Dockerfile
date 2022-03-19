@@ -1,3 +1,4 @@
+MAINTAINER vaibhav kaushik <github@vaibhavk.in>
 FROM golang:1.17-alpine AS build
 
 WORKDIR /src/

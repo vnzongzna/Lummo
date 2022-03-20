@@ -1,8 +1,8 @@
-name: Docker
+name: CD
 
 on:
   workflow_run:
-    workflows: ["Go"]
+    workflows: ["CI"]
     types:
       - completed
 
@@ -92,7 +92,7 @@ jobs:
         run: TAG=${{ steps.meta.outputs.tags }} && sed -i 's|<IMAGE>|ghcr.io/vnzongzna/lummo:'${TAG}'|' $GITHUB_WORKSPACE/config/deployment.yml
 
       - name: Save DigitalOcean kubeconfig with short-lived credentials
-        run: doctl kubernetes cluster kubeconfig save --expiry-seconds 600 do-tor1-do-cluster-1
+        run: doctl kubernetes cluster kubeconfig save --expiry-seconds 600 do-cluster-1
 
       - name: Deploy to DigitalOcean Kubernetes
         run: kubectl apply -f $GITHUB_WORKSPACE/config/deployment.yml

@@ -1,7 +1,6 @@
 package metrics
 
 import (
-	"log"
 	"net/http"
 	"strconv"
 
@@ -52,7 +51,6 @@ var httpDuration = promauto.NewHistogramVec(prometheus.HistogramOpts{
 func PrometheusMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		path := r.URL.Path
-		log.Println(path)
 
 		timer := prometheus.NewTimer(httpDuration.WithLabelValues(path))
 		rw := NewResponseWriter(w)

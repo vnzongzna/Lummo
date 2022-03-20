@@ -36,12 +36,14 @@ apiVersion: v1
 kind: Service
 metadata:
   name: kv-store-service
+  annotations:
+    service.beta.kubernetes.io/do-loadbalancer-name: "kv.vaibhavk.in"
 spec:
   type: LoadBalancer
   ports:
-    - name: https
+    - name: http
       protocol: TCP
-      port: 443
+      port: 80
       targetPort: 8088
   selector:
     app: kv-store

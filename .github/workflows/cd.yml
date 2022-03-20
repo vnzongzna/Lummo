@@ -95,7 +95,7 @@ jobs:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
       - name: Update deployment file
-        run: TAG=${{ steps.meta.outputs.tags.sha }} && sed -i 's|<IMAGE>|ghcr.io/vnzongzna/lummo:'${TAG}'|' $GITHUB_WORKSPACE/config/deployment.yml
+        run: TAG=${{ steps.meta.outputs.tags }} && sed -i 's|<IMAGE>|ghcr.io/vnzongzna/lummo:'${TAG}'|' $GITHUB_WORKSPACE/config/deployment.yml
 
       - name: Save DigitalOcean kubeconfig with short-lived credentials
         run: doctl kubernetes cluster kubeconfig save --expiry-seconds 600 do-cluster-1

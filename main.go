@@ -19,6 +19,7 @@ func main() {
 	r.Use(middleware.AllowContentType("application/json"))
 	r.Use(metrics.PrometheusMiddleware)
 
+	// only because of key I had to use chi package
 	r.Get("/get/{key}", kv.Get)
 	r.Post("/set", kv.Set)
 	r.Get("/search", kv.Search)

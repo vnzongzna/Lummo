@@ -74,6 +74,10 @@ func (kv *KVStore) Set(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+type searchResult struct {
+	Keys []string `json:"keys"`
+}
+
 func (kv *KVStore) Search(w http.ResponseWriter, r *http.Request) {
 	query := r.URL.Query()
 	result := make([]string, 0)
@@ -92,7 +96,7 @@ func (kv *KVStore) Search(w http.ResponseWriter, r *http.Request) {
 		}
 		w.WriteHeader(http.StatusOK)
 	} else if query.Has("suffix") {
-		suffix := query.Get("prefix")
+		suffix := query.Get("suffix")
 		for k := range kv.data {
 			if strings.HasSuffix(k, suffix) {
 				result = append(result, k)
@@ -102,11 +106,7 @@ func (kv *KVStore) Search(w http.ResponseWriter, r *http.Request) {
 	} else {
 		w.WriteHeader(http.StatusBadRequest)
 	}
-	result_marshalled, err := json.Marshal(&struct {
-		Keys []string `json:"keys"`
-	}{
-		Keys: result,
-	})
+	result_marshalled, err := json.Marshal(&searchResult{Keys: result})
 	if err != nil {
 		log.Println("marshalling failed for", result)
 	}

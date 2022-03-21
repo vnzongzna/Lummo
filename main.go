@@ -7,8 +7,8 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 
-	kv "github.com/vnzongzna/lummo/pkg/kv/v1"
-	"github.com/vnzongzna/lummo/pkg/metrics"
+	kv "github.com/vnzongzna/store/pkg/kv/v1"
+	"github.com/vnzongzna/store/pkg/metrics"
 )
 
 func main() {

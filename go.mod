@@ -1,4 +1,4 @@
-module github.com/vnzongzna/lummo
+module github.com/vnzongzna/store
 
 go 1.17
 
